@@ -6,6 +6,7 @@ import { buildSchema, AuthChecker } from 'type-graphql';
 import path from 'path';
 import { AdminResolver } from './service/admins/Admin.resolver';
 import UserResolver from './service/users/User.resolver';
+import AuthResolver from './service/auth/Auth.resolver';
 
 const authChecker: AuthChecker<ContextualizedTypeStats> = (
     { root, args, context, info }: any,
@@ -21,6 +22,7 @@ const makeSchema =  async () => await buildSchema({
     resolvers: [
       UserResolver,
       AdminResolver,
+      AuthResolver,
     ],
     emitSchemaFile: path.resolve(__dirname, 'schema.gql'),
     globalMiddlewares: [TypegooseMiddleware],

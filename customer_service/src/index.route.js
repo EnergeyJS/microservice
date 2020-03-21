@@ -1,5 +1,6 @@
 const express = require('express')
 const userRoutes = require('./api/user/user.route')
+const authRoutes = require('./api/auth/auth.route')
 
 const router = express.Router()
 
@@ -21,5 +22,11 @@ router.get('/', (req, res) => res.send('OK'))
  * @apiGroup User
  */
 router.use('/user', userRoutes)
+
+/**
+ * @apiDescription Mounts auth routes at /auth
+ * @apiGroup Auth
+ */
+router.use('/auth', authRoutes)
 
 module.exports = router

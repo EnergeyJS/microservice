@@ -18,9 +18,6 @@ module.exports = {
    * @apiGroup User
    */
   get: {
-    headers: {
-      authorization: Joi.string().required()
-    },
     params: {
       userId: Joi.string().required()
     }
@@ -31,9 +28,6 @@ module.exports = {
    * @apiGroup User
    */
   update: {
-    headers: {
-      authorization: Joi.string().required()
-    },
     params: {
       userId: Joi.string().required()
     },
@@ -58,9 +52,6 @@ module.exports = {
    * @apiGroup User
    */
   remove: {
-    headers: {
-      authorization: Joi.string().required()
-    },
     params: {
       userId: Joi.string().required()
     }

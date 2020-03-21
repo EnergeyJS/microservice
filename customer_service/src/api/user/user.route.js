@@ -63,7 +63,7 @@ router.route('/:userId')
    * @apiSuccess {Object} user Details of user
    * @apiError {Object} error Error response
    */
-  .get(guard({ secret: env.jwtSecret, requestProperty: 'auth' }),
+  .get(
     validate(userParam.get),
     userCtrl.get)
 
@@ -79,7 +79,7 @@ router.route('/:userId')
    * @apiSuccess {Object} users List of users
    * @apiError {Object} error Error response
    */
-  .put(guard({ secret: env.jwtSecret, requestProperty: 'auth' }),
+  .put(
     validate(userParam.update),
     userCtrl.update)
 
@@ -94,9 +94,10 @@ router.route('/:userId')
    * @apiSuccess {Object} user Deleted user details
    * @apiError {Object} error Error response
    */
-  .delete(guard({ secret: env.jwtSecret, requestProperty: 'auth' }),
+  .delete(
     validate(userParam.remove),
-    userCtrl.remove)
+    userCtrl.remove
+    )
 
 /**
  * Load user when API is hit with userId param

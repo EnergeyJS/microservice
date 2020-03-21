@@ -54,15 +54,16 @@ UserSchema.statics = {
    * @param {number} limit - Limit number of users to be returned
    * @returns {Promise<User[], Error>}
    */
-  async list ({ skip = 0, limit = 50 } = {}) {
-    const users = await this.find()
-      .select('-password')
-      .sort({ createdAt: -1 })
-      .skip(+skip)
-      .limit(+limit)
-      .exec()
-    return users
-  },
+  async list ({ page = 1, limit = 50 } = {}) {
+    const users = await this.paginate(
+        {},
+        {
+          page,
+          limit
+        }
+      )
+      return users
+    },
   attributes : [
     '_id',
     'email',

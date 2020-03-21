@@ -1,4 +1,4 @@
-import { IContext } from './makeContext';
+// import { IContext } from './makeContext';
 import { Server, IncomingMessage, ServerResponse } from 'http';
 import { FastifyRequest } from 'fastify';
 import fastify = require('fastify');

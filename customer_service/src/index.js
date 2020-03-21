@@ -4,9 +4,9 @@
 const consola = require('consola')
 consola.wrapAll()
 
+const mongoose = require('./config/mongoose')
 const app = require('./config/express')
 const env = require('./config/environment')
-const mongoose = require('./config/mongoose')
 
 /**
  * Start application if not running test

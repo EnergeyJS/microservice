@@ -2,7 +2,7 @@ import envSchema from 'env-schema';
 
 const schema = {
   type: 'object',
-  required: [ 'HOST', 'PORT', 'DB_URL', 'DB_DEBUG', 'JWT_SECRET' ],
+  required: [ 'HOST', 'PORT', 'DB_URL', 'DB_DEBUG', 'JWT_SECRET', 'BASE_URL' ],
   properties: {
     HOST: {
       type: 'string'
@@ -17,6 +17,9 @@ const schema = {
       type: 'boolean'
     },
     JWT_SECRET: {
+      type: 'string'
+    },
+    BASE_URL: {
       type: 'string'
     }
   }

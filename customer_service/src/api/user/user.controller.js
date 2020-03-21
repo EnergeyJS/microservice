@@ -65,9 +65,12 @@ async function create (req, res, next) {
 async function update (req, res, next) {
   try {
     const user = req.user
-    user.mobileNumber = req.body.mobileNumber
+    const updateUser = _.pick(req.body, User.attributes)
+    Object.keys(updateUser).map(key => {
+      user[key] = updateUser[key]
+    })
     const savedUser = await user.save()
-    const sendUser = _.pick(savedUser, ['_id', 'username', 'mobileNumber'])
+    const sendUser = _.pick(savedUser, User.attributes)
     return res.json(sendUser)
   } catch (e) {
     next(e)
