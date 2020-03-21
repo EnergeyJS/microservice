@@ -1,1 +1,2 @@
-#Fastify Starter with Graphql Typescript and 
+#Main service
+`Appolo server` `Graphql` `Typescript`
