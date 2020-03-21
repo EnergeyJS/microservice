@@ -1,3 +1,3 @@
-# microservice-node-express-mongodb
+# microservice
 
-Main service with `GRAPH API` and other microservice with `REST API`.
+Main service with `GRAPH API`(apploserver-graphql-typescript) and other microservice with `REST API`(node-express-mongodb).
