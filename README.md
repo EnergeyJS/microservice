@@ -5,4 +5,4 @@
 ![rest](https://user-images.githubusercontent.com/18731391/77221062-61d3c880-6b70-11ea-8d53-7ecb4b0439f5.PNG) 
 
 
-Main service with `GRAPH API`(Appolo Server, GraphQL TypeScript) and other microservice with `REST API`(Node.js , Express, MongoDB).
+Main service with `GRAPH API`(Appolo Server, GraphQL, TypeScript) and other microservice with `REST API`(Node.js , Express, MongoDB).
