@@ -1,3 +1,4 @@
+import BookResolver from './service/books/Book.resolver';
 import { ObjectIdScalar } from './object-id.scalar';
 import { ObjectId } from 'mongodb';
 import { TypegooseMiddleware } from './typegoose-middleware';
@@ -20,6 +21,7 @@ const authChecker: AuthChecker<ContextualizedTypeStats> = (
 
 const makeSchema =  async () => await buildSchema({
     resolvers: [
+      BookResolver,
       UserResolver,
       AdminResolver,
       AuthResolver,

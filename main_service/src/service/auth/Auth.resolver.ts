@@ -6,7 +6,7 @@ import { Resolver, Mutation, Args, Ctx} from 'type-graphql';
 import { loginInput } from './Auth.input';
 import { Auth } from './Auth.model';
 import axios from 'axios';
-const { BASE_URL } = process.env;
+const { CUSTOMER_SERVICE_URL } = process.env;
 import { AuthenticationError } from 'apollo-server-core';
 
 @Resolver()
@@ -18,7 +18,7 @@ export default class UserAuthResolver {
     @Ctx() { app }: IContext
     ) {
       try {
-        const {data} = await axios.post(`${BASE_URL}/api/auth/login`, {email, password});
+        const {data} = await axios.post(`${CUSTOMER_SERVICE_URL}/api/auth/login`, {email, password});
               data.token = await app.jwt.sign(data.user)
         return data;
       } catch (error) {

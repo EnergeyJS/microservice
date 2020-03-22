@@ -9,7 +9,7 @@ import { CreateUserInput, UpdateUserInput } from './User.input';
 import { User, UserModel, UserPaginateModel } from './User.model';
 import { PaginationInput } from '../../lib/Paginate';
 import axios from 'axios';
-const { BASE_URL } = process.env;
+const { CUSTOMER_SERVICE_URL } = process.env;
 
 @Resolver()
 export default class UserResolver {
@@ -19,7 +19,7 @@ export default class UserResolver {
   async users(
     @Arg('pagination', { nullable: true }) paginate: PaginationInput= { page: 1, limit: 50 }
   ): Promise<PaginateResult<DocumentType<User>>> {
-    const {data} = await axios.get(`${BASE_URL}/api/user`);
+    const {data} = await axios.get(`${CUSTOMER_SERVICE_URL}/api/user`);
     return data;
   }
 
@@ -27,7 +27,7 @@ export default class UserResolver {
   async createUser  (
     @Arg('data', { nullable: true }) data: CreateUserInput,
     ): Promise<DocumentType<User>> {
-    const response = await axios.post(`${BASE_URL}/api/user`, data);
+    const response = await axios.post(`${CUSTOMER_SERVICE_URL}/api/user`, data);
     return response.data;
   }
 
@@ -37,7 +37,7 @@ export default class UserResolver {
     @Arg('_id', { nullable: true }) _id ?: ObjectId,
     @Arg('data', { nullable: true }) data ?: UpdateUserInput
   ): Promise<DocumentType<User>> {
-    const response = await axios.put(`${BASE_URL}/api/user/${_id}`, data);
+    const response = await axios.put(`${CUSTOMER_SERVICE_URL}/api/user/${_id}`, data);
     return response.data;
   }
 

@@ -20,6 +20,31 @@ type Auth {
   user: User!
 }
 
+type Book {
+  _id: ObjectId!
+  name: String!
+  author: String!
+  price: Float!
+}
+
+type BookPaginateModel {
+  docs: [Book!]!
+  totalDocs: Int!
+  limit: Int!
+  hasPrevPage: Boolean!
+  hasNextPage: Boolean!
+  page: Int!
+  totalPages: Int!
+  prevPage: Int
+  nextPage: Int
+}
+
+input CreateBookInput {
+  name: String!
+  author: String!
+  price: Float!
+}
+
 input CreateUserInput {
   email: String
   name: String
@@ -27,6 +52,9 @@ input CreateUserInput {
 }
 
 type Mutation {
+  createBook(input: CreateBookInput): Book!
+  updateBook(input: UpdateBookInput, _id: ObjectId): Book!
+  deleteBook(_id: ObjectId): String!
   createAdmins(data: AdminInput): Admin!
   createUser(data: CreateUserInput): User!
   updateUser(data: UpdateUserInput, _id: ObjectId): User!
@@ -43,8 +71,15 @@ input PaginationInput {
 }
 
 type Query {
+  books(pagination: PaginationInput): BookPaginateModel!
   admins: [Admin!]!
   users(pagination: PaginationInput): UserPaginateModel!
+}
+
+input UpdateBookInput {
+  name: String
+  author: String
+  price: Float
 }
 
 input UpdateUserInput {

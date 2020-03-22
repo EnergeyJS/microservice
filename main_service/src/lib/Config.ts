@@ -2,7 +2,7 @@ import envSchema from 'env-schema';
 
 const schema = {
   type: 'object',
-  required: [ 'HOST', 'PORT', 'DB_URL', 'DB_DEBUG', 'JWT_SECRET', 'BASE_URL' ],
+  required: [ 'HOST', 'PORT', 'DB_URL', 'DB_DEBUG', 'JWT_SECRET', 'CUSTOMER_SERVICE_URL', 'BOOK_SERVICE_URL' ],
   properties: {
     HOST: {
       type: 'string'
@@ -19,7 +19,10 @@ const schema = {
     JWT_SECRET: {
       type: 'string'
     },
-    BASE_URL: {
+    CUSTOMER_SERVICE_URL: {
+      type: 'string'
+    },
+    BOOK_SERVICE_URL: {
       type: 'string'
     }
   }
