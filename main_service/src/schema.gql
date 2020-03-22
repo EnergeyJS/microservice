@@ -21,7 +21,7 @@ type Auth {
 }
 
 type Book {
-  _id: ObjectId!
+  _id: String!
   name: String!
   author: String!
   price: Float!
@@ -53,8 +53,8 @@ input CreateUserInput {
 
 type Mutation {
   createBook(input: CreateBookInput): Book!
-  updateBook(input: UpdateBookInput, _id: ObjectId): Book!
-  deleteBook(_id: ObjectId): String!
+  updateBook(input: UpdateBookInput, _id: String): Book!
+  deleteBook(_id: String): String!
   createAdmins(data: AdminInput): Admin!
   createUser(data: CreateUserInput): User!
   updateUser(data: UpdateUserInput, _id: ObjectId): User!

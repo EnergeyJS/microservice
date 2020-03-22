@@ -3,13 +3,12 @@ const httpStatus = require('http-status')
 
 const Book = require('./book.model')
 const APIError = require('../../libs/APIError')
-const axios = require('axios')
 /**
- * Load user and append to req object
+ * Load book and append to req object
  */
 async function load (req, res, next, id) {
   try {
-    req.user = await Book.get({ '_id': id })
+    req.book = await Book.get({ '_id': id })
     return next()
   } catch (e) {
     next(e)
@@ -17,33 +16,33 @@ async function load (req, res, next, id) {
 }
 
 /**
- * Get user
- * @property {string} req.params.userId _id of user
+ * Get book
+ * @property {string} req.params.userId _id of book
  * @returns {<Book, Error>}
  */
 function get (req, res, next) {
-  const user = req.user
-  const sendUser = _.pick(user, Book.attributes)
+  const book = req.book
+  const sendUser = _.pick(book, Book.attributes)
   return res.json(sendUser)
 }
 
 /**
- * Create new user
- * @property {string} req.body.username username of user
- * @property {string} req.body.mobileNumber mobileNumber of user
- * @property {string} req.body.password password of user
+ * Create new book
+ * @property {string} req.body.username username of book
+ * @property {string} req.body.mobileNumber mobileNumber of book
+ * @property {string} req.body.password password of book
  * @returns {<Book, Error>}
  */
 async function create (req, res, next) {
   try {
     const { name, author, price} = req.body;
-    const user = new Book({
+    const book = new Book({
       name,
       author,
       price
     })
-    const savedUser = await user.save()
-    const sendUser = _.pick(savedUser, Book.attributes)
+    const savedBook = await book.save()
+    const sendUser = _.pick(savedBook, Book.attributes)
     return res.json(sendUser)
   } catch (e) {
     let err = e
@@ -55,17 +54,21 @@ async function create (req, res, next) {
 }
 
 /**
- * Update user
- * @property {string} req.params.userId _id of user
- * @property {string} req.body.mobileNumber mobileNumber of user
+ * Update book
+ * @property {string} req.params.userId _id of book
+ * @property {string} req.body.mobileNumber mobileNumber of book
  * @returns {<Book, Error>}
  */
 async function update (req, res, next) {
   try {
-    const user = req.user
-    user.mobileNumber = req.body.mobileNumber
-    const savedUser = await user.save()
-    const sendUser = _.pick(savedUser, ['_id', 'username', 'mobileNumber'])
+    const book = req.book
+    const updateBook = _.pick(req.body, Book.attributes)
+    Object.keys(updateBook).map(key => {
+      book[key] = updateBook[key]
+    })
+
+    const savedBook = await book.save()
+    const sendUser = _.pick(savedBook, Book.attributes)
     return res.json(sendUser)
   } catch (e) {
     next(e)
@@ -81,13 +84,6 @@ async function update (req, res, next) {
 async function list (req, res, next) {
   try {
     let books = await Book.list(req.query)
-    const ids = books.map(book => book.author)
-    const {data} = await axios.post('http://localhost:9200/api/user/populate', {ids})
-    books = books.map(book => {
-      const found = data.find(user=> user._id == book.author)
-      found && (book.author = found);
-      return book;
-    })
     return res.json(books)
   } catch (e) {
     next(e)
@@ -95,15 +91,15 @@ async function list (req, res, next) {
 }
 
 /**
- * Delete user
- * @property {string} req.params.userId _id of user
+ * Delete book
+ * @property {string} req.params.userId _id of book
  * @returns {<Book, Error>}
  */
 async function remove (req, res, next) {
   try {
-    const user = req.user
-    const deletedUser = await user.remove()
-    const sendUser = _.pick(deletedUser, ['_id', 'username', 'mobileNumber'])
+    const book = req.book
+    const deletedUser = await book.remove()
+    const sendUser = _.pick(deletedUser, Book.attributes)
     return res.json(sendUser)
   } catch (e) {
     next(e)

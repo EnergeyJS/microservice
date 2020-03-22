@@ -18,9 +18,6 @@ module.exports = {
    * @apiGroup Book
    */
   get: {
-    headers: {
-      authorization: Joi.string().required()
-    },
     params: {
       bookId: Joi.string().required()
     }
@@ -31,9 +28,6 @@ module.exports = {
    * @apiGroup Book
    */
   update: {
-    headers: {
-      authorization: Joi.string().required()
-    },
     params: {
       bookId: Joi.string().required()
     },
@@ -60,9 +54,6 @@ module.exports = {
    * @apiGroup Book
    */
   remove: {
-    headers: {
-      authorization: Joi.string().required()
-    },
     params: {
       bookId: Joi.string().required()
     }

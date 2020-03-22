@@ -7,7 +7,7 @@ import { getPaginateModel } from '../../lib/Paginate';
 @ObjectType()
 export class Book extends getBaseModel<Book>() {
   @Field()
-  readonly _id: ObjectId;
+  readonly _id: string;
 
   @Field()
   name: string;
