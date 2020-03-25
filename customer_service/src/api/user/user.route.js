@@ -1,10 +1,8 @@
 const { Router } = require('express')
 const validate = require('express-validation')
-const guard = require('express-jwt')
 
 const userParam = require('./user.param')
 const userCtrl = require('./user.controller')
-const env = require('../../config/environment')
 
 const router = Router()
 
@@ -97,7 +95,7 @@ router.route('/:userId')
   .delete(
     validate(userParam.remove),
     userCtrl.remove
-    )
+  )
 
 /**
  * Load user when API is hit with userId param

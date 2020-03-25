@@ -1,7 +1,9 @@
 import { Field } from 'type-graphql';
 import { InputType, ArgsType } from 'type-graphql';
+import { ObjectId, ObjectID } from 'mongodb';
 
 import { Book } from './Book.model';
+import { User } from '../users/User.model';
 
 @InputType()
 export class CreateBookInput implements Partial<Book> {

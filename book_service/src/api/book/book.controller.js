@@ -35,7 +35,7 @@ function get (req, res, next) {
  */
 async function create (req, res, next) {
   try {
-    const { name, author, price} = req.body;
+    const { name, author, price } = req.body
     const book = new Book({
       name,
       author,

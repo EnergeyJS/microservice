@@ -3,6 +3,7 @@ import { Field, ObjectType } from 'type-graphql';
 
 import getBaseModel from '../BaseModel';
 import { getPaginateModel } from '../../lib/Paginate';
+import { User } from '../users/User.model';
 
 @ObjectType()
 export class Book extends getBaseModel<Book>() {
@@ -12,7 +13,7 @@ export class Book extends getBaseModel<Book>() {
   @Field()
   name: string;
 
-  @Field()
+  @Field(() => User)
   author: string;
 
   @Field()

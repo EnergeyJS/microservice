@@ -38,7 +38,7 @@ function get (req, res, next) {
  */
 async function create (req, res, next) {
   try {
-    const {  email, name, password} = req.body
+    const { email, name, password } = req.body
     const user = new User({
       email,
       name,
@@ -100,8 +100,8 @@ async function list (req, res, next) {
  */
 async function populate (req, res, next) {
   try {
-    const { ids = [] } = req.body;
-    const users = await User.find({_id: {$in: ids}}).select(User.attributes)
+    const { ids = [] } = req.body
+    const users = await User.find({ _id: { $in: ids } }).select(User.attributes)
     return res.json(users)
   } catch (e) {
     next(e)

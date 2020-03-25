@@ -6,7 +6,7 @@ import { DocumentType } from '@typegoose/typegoose';
 import { Resolver, Query, Mutation, Arg, Authorized, Ctx, } from 'type-graphql';
 
 import { CreateUserInput, UpdateUserInput } from './User.input';
-import { User, UserModel, UserPaginateModel } from './User.model';
+import { User, UserPaginateModel } from './User.model';
 import { PaginationInput } from '../../lib/Paginate';
 import axios from 'axios';
 const { CUSTOMER_SERVICE_URL } = process.env;
@@ -41,12 +41,11 @@ export default class UserResolver {
     return response.data;
   }
 
-  @Mutation(returns => String)
+  @Mutation(returns => User)
   async deleteUser(
     @Arg('_id', { nullable: true }) _id ?: ObjectId
-  ): Promise<string> {
-    const user = await UserModel.findOne({_id});
-    const saved = await user.remove();
-    return 'Success';
+  ): Promise<User> {
+    const response = await axios.delete(`${CUSTOMER_SERVICE_URL}/api/user/${_id}`);
+    return response.data;
   }
 }

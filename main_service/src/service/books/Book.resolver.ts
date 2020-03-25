@@ -3,17 +3,18 @@ import _ from 'lodash';
 import { ObjectId } from 'mongodb';
 import { PaginateResult } from 'mongoose';
 import { DocumentType } from '@typegoose/typegoose';
-import { Resolver, Query, Mutation, Arg, Authorized } from 'type-graphql';
+import { Resolver, Query, Mutation, Arg, Authorized, FieldResolver, Root, Ctx } from 'type-graphql';
 import axios from 'axios';
 
 import { CreateBookInput, UpdateBookInput } from './Book.input';
 import { Book, BookPaginateModel } from './Book.model';
 import { PaginationInput } from '../../lib/Paginate';
+import { User } from '../users/User.model';
 
 const { BOOK_SERVICE_URL } = process.env;
 
 
-@Resolver()
+@Resolver(()=> Book)
 export default class BookResolver {
 
   // @Authorized()
@@ -48,5 +49,11 @@ export default class BookResolver {
   ): Promise<string> {
     const {data} = await axios.get(`${BOOK_SERVICE_URL}/api/book`);
     return data;
+  }
+
+  @FieldResolver(() => Book)
+  async author(@Root() book: Book, @Ctx() ctx): Promise<User> {
+    const { author } = book;
+    return ctx.loader.user.load(author);
   }
 }
