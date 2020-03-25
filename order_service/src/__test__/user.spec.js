@@ -4,7 +4,7 @@ const supertest = require('supertest')
 const httpStatus = require('http-status')
 
 const app = require('../index')
-const User = require('../api/user/user.model')
+const User = require('../api/order/order.model')
 const JWToken = require('../libs/jwToken')
 
 afterAll((done) => {
@@ -22,10 +22,10 @@ describe('User API specs', () => {
   }
   const token = JWToken.create(userData, '10m')
 
-  describe('POST /api/users', () => {
+  describe('POST /api/order', () => {
     test('should create new user', (done) => {
       supertest(app)
-        .post('/api/users')
+        .post('/api/order')
         .send(userData)
         .expect(httpStatus.OK)
         .then((res) => {
@@ -40,7 +40,7 @@ describe('User API specs', () => {
     })
     test('should return - duplicate key error', (done) => {
       supertest(app)
-        .post('/api/users')
+        .post('/api/order')
         .send(userData)
         .expect(httpStatus.BAD_REQUEST)
         .then(() => done())
@@ -48,12 +48,12 @@ describe('User API specs', () => {
     })
   })
 
-  describe('GET /api/users', () => {
-    test('should return users - with skip, limit', async (done) => {
+  describe('GET /api/order', () => {
+    test('should return order - with skip, limit', async (done) => {
       const skip = 0
       const limit = 50
       supertest(app)
-        .get(`/api/users?limit=${limit}&skip=${skip}`)
+        .get(`/api/order?limit=${limit}&skip=${skip}`)
         .expect(httpStatus.OK)
         .then((res) => {
           expect(Array.isArray(res.body)).toBeTruthy()
@@ -61,9 +61,9 @@ describe('User API specs', () => {
         })
         .catch(done)
     })
-    test('should return users - without skip, limit', async (done) => {
+    test('should return order - without skip, limit', async (done) => {
       supertest(app)
-        .get(`/api/users`)
+        .get(`/api/order`)
         .expect(httpStatus.OK)
         .then((res) => {
           expect(Array.isArray(res.body)).toBeTruthy()
@@ -73,10 +73,10 @@ describe('User API specs', () => {
     })
   })
 
-  describe('GET /api/users/:userId', () => {
+  describe('GET /api/order/:userId', () => {
     test('should return - no such user exists', async (done) => {
       supertest(app)
-        .get(`/api/users/507f191e810c19729de860ea`)
+        .get(`/api/order/507f191e810c19729de860ea`)
         .set('Authorization', `Bearer ${token}`)
         .expect(httpStatus.NOT_FOUND)
         .then(() => done())
@@ -84,7 +84,7 @@ describe('User API specs', () => {
     })
     test('should get user details', async (done) => {
       supertest(app)
-        .get(`/api/users/${user._id}`)
+        .get(`/api/order/${user._id}`)
         .set('Authorization', `Bearer ${token}`)
         .expect(httpStatus.OK)
         .then((res) => {
@@ -97,10 +97,10 @@ describe('User API specs', () => {
     })
   })
 
-  describe('PUT /api/users/:userId', () => {
+  describe('PUT /api/order/:userId', () => {
     test('should update user details', async (done) => {
       supertest(app)
-        .put(`/api/users/${user._id}`)
+        .put(`/api/order/${user._id}`)
         .set('Authorization', `Bearer ${token}`)
         .send({ mobileNumber: '0987654321' })
         .expect(httpStatus.OK)
@@ -114,10 +114,10 @@ describe('User API specs', () => {
     })
   })
 
-  describe('DELETE /api/users/:userId', () => {
+  describe('DELETE /api/order/:userId', () => {
     test('should delete user', async (done) => {
       supertest(app)
-        .delete(`/api/users/${user._id}`)
+        .delete(`/api/order/${user._id}`)
         .set('Authorization', `Bearer ${token}`)
         .expect(httpStatus.OK)
         .then((res) => {

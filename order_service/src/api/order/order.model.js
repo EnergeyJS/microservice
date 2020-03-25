@@ -12,11 +12,11 @@ const OrderSchema = new mongoose.Schema({
   },
   book: {
     type: mongoose.Types.ObjectId
-  },
-},
-  {
-    timestamps: true
   }
+},
+{
+  timestamps: true
+}
 )
 
 /**
@@ -62,7 +62,7 @@ OrderSchema.statics = {
   attributes: [
     '_id',
     'customer',
-    'book',
+    'book'
   ]
 }
 

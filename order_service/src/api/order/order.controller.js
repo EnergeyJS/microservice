@@ -1,11 +1,9 @@
 const _ = require('lodash')
-const bcrypt = require('bcryptjs')
 const httpStatus = require('http-status')
 
 const Order = require('./order.model')
 const APIError = require('../../libs/APIError')
 
-const salt = bcrypt.genSaltSync(10)
 /**
  * Load order and append to req object
  */
@@ -39,7 +37,7 @@ function get (req, res, next) {
 async function create (req, res, next) {
   try {
     const { book, customer } = req.body
-    const order = new Order({book, customer})
+    const order = new Order({ book, customer })
     const savedOrder = await order.save()
     const sendOrder = _.pick(savedOrder, Order.attributes)
     return res.json(sendOrder)

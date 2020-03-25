@@ -22,5 +22,4 @@ router.get('/', (req, res) => res.send('OK'))
  */
 router.use('/order', orderRoutes)
 
-
 module.exports = router
