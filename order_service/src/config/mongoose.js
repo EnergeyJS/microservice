@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const util = require('util')
 const debug = require('debug')('node-rest-starter:index')
+const mongoosePaginate = require('mongoose-paginate-v2')
 
 const env = require('./environment')
 
@@ -25,6 +26,25 @@ const mongoOption = {
   useFindAndModify: false,
   useUnifiedTopology: true
 }
+
+mongoosePaginate.paginate.options = {
+  limit: 25,
+  page: 1,
+  customLabels: {
+    docs: 'docs',
+    limit: 'limit',
+    hasPrevPage: 'hasPrevPage',
+    hasNextPage: 'hasNextPage',
+    page: 'page',
+    offset: 'offset',
+    totalDocs: 'totalDocs',
+    totalPages: 'pages',
+    pagingCounter: 'pageNo',
+    nextPage: 'next',
+    prevPage: 'prev'
+  }
+}
+mongoose.plugin(mongoosePaginate)
 
 /**
  * connect to mongo db

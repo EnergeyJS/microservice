@@ -10,14 +10,14 @@ const BookSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    unique: true,
+    unique: true
   },
   author: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Types.ObjectId
   },
   price: {
     type: Number,
-    default: 0,
+    default: 0
   }
 },
 {
@@ -56,8 +56,8 @@ BookSchema.statics = {
    * @returns {Promise<Book[], Error>}
    */
   async list ({ page = 1, limit = 50 } = {}) {
-    console.log(page);
-    console.log(limit);
+    console.log(page)
+    console.log(limit)
     const books = await this.paginate(
       {},
       {

@@ -45,6 +45,10 @@ input CreateBookInput {
   price: Float!
 }
 
+input CreateOrderInput {
+  name: String!
+}
+
 input CreateUserInput {
   email: String
   name: String
@@ -52,6 +56,9 @@ input CreateUserInput {
 }
 
 type Mutation {
+  createOrder(data: CreateOrderInput): Order!
+  updateOrder(data: UpdateOrderInput, _id: ObjectId): Order!
+  deleteOrder(_id: ObjectId): String!
   createBook(input: CreateBookInput): Book!
   updateBook(input: UpdateBookInput, _id: String): Book!
   deleteBook(_id: String): String!
@@ -65,12 +72,30 @@ type Mutation {
 """Mongo object id scalar type"""
 scalar ObjectId
 
+type Order {
+  _id: ObjectId!
+  name: String!
+}
+
+type OrderPaginateModel {
+  docs: [Order!]!
+  totalDocs: Int!
+  limit: Int!
+  hasPrevPage: Boolean!
+  hasNextPage: Boolean!
+  page: Int!
+  totalPages: Int!
+  prevPage: Int
+  nextPage: Int
+}
+
 input PaginationInput {
   page: Int!
   limit: Int!
 }
 
 type Query {
+  orders(pagination: PaginationInput): OrderPaginateModel!
   books(pagination: PaginationInput): BookPaginateModel!
   admins: [Admin!]!
   users(pagination: PaginationInput): UserPaginateModel!
@@ -80,6 +105,10 @@ input UpdateBookInput {
   name: String
   author: String
   price: Float
+}
+
+input UpdateOrderInput {
+  name: String
 }
 
 input UpdateUserInput {

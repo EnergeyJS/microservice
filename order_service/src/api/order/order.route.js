@@ -2,8 +2,8 @@ const { Router } = require('express')
 const validate = require('express-validation')
 const guard = require('express-jwt')
 
-const userParam = require('./user.param')
-const userCtrl = require('./user.controller')
+const userParam = require('./order.param')
+const userCtrl = require('./order.controller')
 const env = require('../../config/environment')
 
 const router = Router()

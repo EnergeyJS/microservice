@@ -6,45 +6,40 @@ const APIError = require('../../libs/APIError')
 /**
  * User Schema
  */
-const UserSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    unique: true,
-    required: true
+const OrderSchema = new mongoose.Schema({
+  customer: {
+    type: mongoose.Types.ObjectId
   },
-  name: {
-    type: String
+  book: {
+    type: mongoose.Types.ObjectId
   },
-  password: {
-    type: String
-  }
 },
-{
-  timestamps: true
-}
+  {
+    timestamps: true
+  }
 )
 
 /**
  * Methods
  */
-UserSchema.method({
+OrderSchema.method({
 })
 
 /**
  * Statics
  */
-UserSchema.statics = {
+OrderSchema.statics = {
   /**
    * Get User
-   * @param {Object} conditions - conditions to find user for
+   * @param {Object} conditions - conditions to find order for
    * @returns {Promise<User, Error>}
    */
   async get (conditions) {
-    const user = await this.findOne(conditions).exec()
-    if (user) {
-      return user
+    const order = await this.findOne(conditions).exec()
+    if (order) {
+      return order
     }
-    const err = new APIError('No such user exists!', httpStatus.NOT_FOUND)
+    const err = new APIError('No such order exists!', httpStatus.NOT_FOUND)
     return Promise.reject(err)
   },
 
@@ -55,23 +50,23 @@ UserSchema.statics = {
    * @returns {Promise<User[], Error>}
    */
   async list ({ page = 1, limit = 50 } = {}) {
-    const users = await this.paginate(
+    const orders = await this.paginate(
       {},
       {
         page,
         limit
       }
     )
-    return users
+    return orders
   },
   attributes: [
     '_id',
-    'email',
-    'name'
+    'customer',
+    'book',
   ]
 }
 
 /**
  * @typedef User
  */
-module.exports = mongoose.model('User', UserSchema)
+module.exports = mongoose.model('User', OrderSchema)

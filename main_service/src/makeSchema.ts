@@ -1,3 +1,4 @@
+import OrderResolver from './service/orders/Order.resolver';
 import BookResolver from './service/books/Book.resolver';
 import { ObjectIdScalar } from './object-id.scalar';
 import { ObjectId } from 'mongodb';
@@ -21,6 +22,7 @@ const authChecker: AuthChecker<ContextualizedTypeStats> = (
 
 const makeSchema =  async () => await buildSchema({
     resolvers: [
+      OrderResolver,
       BookResolver,
       UserResolver,
       AdminResolver,
