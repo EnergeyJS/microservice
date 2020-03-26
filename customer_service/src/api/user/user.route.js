@@ -1,7 +1,5 @@
 const { Router } = require('express')
-const validate = require('express-validation')
 
-const userParam = require('./user.param')
 const userCtrl = require('./user.controller')
 
 const router = Router()
@@ -18,7 +16,7 @@ router.route('/populate')
    * @apiSuccess {Array} users List of users
    * @apiError {Object} error Error response
    */
-  .post(validate(userParam.list), userCtrl.populate)
+  .post(userCtrl.populate)
 
 router.route('/')
   /**
@@ -32,7 +30,7 @@ router.route('/')
    * @apiSuccess {Array} users List of users
    * @apiError {Object} error Error response
    */
-  .get(validate(userParam.list), userCtrl.list)
+  .get(userCtrl.list)
 
   /**
    * @api {post} /api/users Create User
@@ -47,7 +45,7 @@ router.route('/')
    * @apiSuccess {Object} users List of users
    * @apiError {Object} error Error response
    */
-  .post(validate(userParam.create), userCtrl.create)
+  .post(userCtrl.create)
 
 router.route('/:userId')
   /**
@@ -62,7 +60,6 @@ router.route('/:userId')
    * @apiError {Object} error Error response
    */
   .get(
-    validate(userParam.get),
     userCtrl.get)
 
   /**
@@ -77,9 +74,7 @@ router.route('/:userId')
    * @apiSuccess {Object} users List of users
    * @apiError {Object} error Error response
    */
-  .put(
-    validate(userParam.update),
-    userCtrl.update)
+  .put(userCtrl.update)
 
   /**
    * @api {delete} /api/users/:userId Delete User
@@ -92,10 +87,7 @@ router.route('/:userId')
    * @apiSuccess {Object} user Deleted user details
    * @apiError {Object} error Error response
    */
-  .delete(
-    validate(userParam.remove),
-    userCtrl.remove
-  )
+  .delete(userCtrl.remove)
 
 /**
  * Load user when API is hit with userId param

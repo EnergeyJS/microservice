@@ -1,7 +1,5 @@
 const { Router } = require('express')
-const validate = require('express-validation')
 
-const bookParam = require('./book.param')
 const bookCtrl = require('./book.controller')
 
 const router = Router()
@@ -18,7 +16,7 @@ router.route('/populate')
    * @apiSuccess {Array} book List of book
    * @apiError {Object} error Error response
    */
-  .post(validate(bookParam.list), bookCtrl.populate)
+  .post(bookCtrl.populate)
 
 router.route('/')
   /**
@@ -32,7 +30,7 @@ router.route('/')
    * @apiSuccess {Array} book List of book
    * @apiError {Object} error Error response
    */
-  .get(validate(bookParam.list), bookCtrl.list)
+  .get(bookCtrl.list)
 
   /**
    * @api {post} /api/book Create Book
@@ -47,7 +45,7 @@ router.route('/')
    * @apiSuccess {Object} book List of book
    * @apiError {Object} error Error response
    */
-  .post(validate(bookParam.create), bookCtrl.create)
+  .post(bookCtrl.create)
 
 router.route('/:bookId')
   /**
@@ -62,7 +60,6 @@ router.route('/:bookId')
    * @apiError {Object} error Error response
    */
   .get(
-    validate(bookParam.get),
     bookCtrl.get
   )
 
@@ -79,7 +76,6 @@ router.route('/:bookId')
    * @apiError {Object} error Error response
    */
   .put(
-    validate(bookParam.update),
     bookCtrl.update)
 
   /**
@@ -94,7 +90,6 @@ router.route('/:bookId')
    * @apiError {Object} error Error response
    */
   .delete(
-    validate(bookParam.remove),
     bookCtrl.remove)
 
 /**
