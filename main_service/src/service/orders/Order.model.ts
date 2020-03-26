@@ -1,22 +1,25 @@
 import _ from 'lodash';
-import { ObjectId } from 'mongodb';
 import { Field, ObjectType } from 'type-graphql';
-import { prop as Property, getModelForClass, modelOptions } from '@typegoose/typegoose';
+import { User } from '../users/User.model';
+import { Book } from '../books/Book.model';
 
 import getBaseModel from '../BaseModel';
 import { getPaginateModel } from '../../lib/Paginate';
 
 @ObjectType()
-@modelOptions({ schemaOptions: { timestamps: true } })
 export class Order extends getBaseModel<Order>() {
   @Field()
-  readonly _id: ObjectId;
+  readonly _id: string;
+
+  @Field(()=> User)
+  customer: string;
+
+  @Field(()=> Book)
+  book: string;
 
   @Field()
-  @Property({ required: true })
-  name: string;
+  quantity: string;
 
 }
 
 export const OrderPaginateModel = getPaginateModel(Order);
-export const OrderModel = getModelForClass(Order);

@@ -4,6 +4,7 @@ import { FastifyRequest } from 'fastify';
 import fastify = require('fastify');
 import DataLoader from 'dataloader';
 import { getUser } from './service/users/User.model';
+import { getBook } from './service/books/Book.model';
 
 type App = fastify.FastifyInstance<Server, IncomingMessage, ServerResponse>;
 
@@ -27,6 +28,7 @@ const makeContext: MakeContext = (app) => {
            user,
            loader: {
             user: new DataLoader(getUser),
+            book: new DataLoader(getBook),
            }
          };
       };

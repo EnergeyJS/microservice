@@ -36,8 +36,8 @@ function get (req, res, next) {
  */
 async function create (req, res, next) {
   try {
-    const { book, customer } = req.body
-    const order = new Order({ book, customer })
+    const { book, customer, quantity } = req.body
+    const order = new Order({ book, customer, quantity })
     const savedOrder = await order.save()
     const sendOrder = _.pick(savedOrder, Order.attributes)
     return res.json(sendOrder)
@@ -59,9 +59,12 @@ async function create (req, res, next) {
 async function update (req, res, next) {
   try {
     const order = req.order
-    order.mobileNumber = req.body.mobileNumber
+    const updateOrder = _.pick(req.body, Order.attributes)
+    Object.keys(updateOrder).map(key => {
+      order[key] = updateOrder[key]
+    })
     const savedOrder = await order.save()
-    const sendOrder = _.pick(savedOrder, ['_id', 'username', 'mobileNumber'])
+    const sendOrder = _.pick(savedOrder, Order.attributes)
     return res.json(sendOrder)
   } catch (e) {
     next(e)
@@ -76,8 +79,8 @@ async function update (req, res, next) {
  */
 async function list (req, res, next) {
   try {
-    const users = await Order.list(req.query)
-    return res.json(users)
+    const orders = await Order.list(req.query)
+    return res.json(orders)
   } catch (e) {
     next(e)
   }
@@ -92,7 +95,7 @@ async function remove (req, res, next) {
   try {
     const order = req.order
     const deletedUser = await order.remove()
-    const sendOrder = _.pick(deletedUser, ['_id', 'username', 'mobileNumber'])
+    const sendOrder = _.pick(deletedUser, Order.attributes)
     return res.json(sendOrder)
   } catch (e) {
     next(e)

@@ -46,7 +46,9 @@ input CreateBookInput {
 }
 
 input CreateOrderInput {
-  name: String!
+  customer: String!
+  book: String!
+  quantity: String!
 }
 
 input CreateUserInput {
@@ -56,9 +58,9 @@ input CreateUserInput {
 }
 
 type Mutation {
-  createOrder(data: CreateOrderInput): Order!
-  updateOrder(data: UpdateOrderInput, _id: ObjectId): Order!
-  deleteOrder(_id: ObjectId): String!
+  createOrder(input: CreateOrderInput): Order!
+  updateOrder(input: UpdateOrderInput, _id: ObjectId): Order!
+  deleteOrder(_id: ObjectId): Order!
   createBook(input: CreateBookInput): Book!
   updateBook(input: UpdateBookInput, _id: String): Book!
   deleteBook(_id: String): String!
@@ -73,8 +75,10 @@ type Mutation {
 scalar ObjectId
 
 type Order {
-  _id: ObjectId!
-  name: String!
+  _id: String!
+  customer: User!
+  book: Book!
+  quantity: String!
 }
 
 type OrderPaginateModel {
@@ -108,7 +112,9 @@ input UpdateBookInput {
 }
 
 input UpdateOrderInput {
-  name: String
+  customer: String!
+  book: String!
+  quantity: String!
 }
 
 input UpdateUserInput {

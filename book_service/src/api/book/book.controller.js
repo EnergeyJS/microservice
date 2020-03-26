@@ -106,11 +106,28 @@ async function remove (req, res, next) {
   }
 }
 
+/**
+ * List user by ids
+ * @property {string} req.params.limit number of users to be listed
+ * @property {string} req.params.skip number of users to be skipped
+ * @returns {<User[], Error>}
+ */
+async function populate (req, res, next) {
+  try {
+    const { ids = [] } = req.body
+    const books = await Book.find({ _id: { $in: ids } }).select(Book.attributes)
+    return res.json(books)
+  } catch (e) {
+    next(e)
+  }
+}
+
 module.exports = {
   load,
   get,
   create,
   list,
   update,
-  remove
+  remove,
+  populate
 }

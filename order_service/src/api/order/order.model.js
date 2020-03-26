@@ -12,6 +12,9 @@ const OrderSchema = new mongoose.Schema({
   },
   book: {
     type: mongoose.Types.ObjectId
+  },
+  quantity: {
+    type: Number
   }
 },
 {
@@ -62,7 +65,8 @@ OrderSchema.statics = {
   attributes: [
     '_id',
     'customer',
-    'book'
+    'book',
+    'quantity'
   ]
 }
 

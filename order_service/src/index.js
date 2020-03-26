@@ -26,7 +26,7 @@ if (env.nodeEnv !== 'test') {
       consola.info(`Environment: ${env.nodeEnv}`)
       consola.info(`Port: ${env.port}`)
       consola.info(`Base uri: http://localhost:${env.port}/api`)
-      consola.info(`Mongo uri: ${env.mongo.host}`)
+      consola.info(`Mongo uri: mongodb://${env.mongo.username}:${env.mongo.password}@${env.mongo.host}:${env.mongo.port}/${env.mongo.db}`)
     })
   })
 }
