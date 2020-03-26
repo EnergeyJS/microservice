@@ -4,6 +4,47 @@ const userCtrl = require('./order.controller')
 
 const router = Router()
 
+router.route('/book/:bookId')
+  /**
+   * @api {get} /api/orders List Orders
+   * @apiName List Orders
+   * @apiGroup Order
+   * @apiVersion 1.0.0
+   *
+   * @apiParam none
+   *
+   * @apiSuccess {Array} orders List of orders
+   * @apiError {Object} error Error response
+   */
+  .get(userCtrl.ordersByBook)
+
+router.route('/author/:authorId')
+  /**
+   * @api {get} /api/orders List Orders
+   * @apiName List Orders
+   * @apiGroup Order
+   * @apiVersion 1.0.0
+   *
+   * @apiParam none
+   *
+   * @apiSuccess {Array} orders List of orders
+   * @apiError {Object} error Error response
+   */
+  .post(userCtrl.ordersByAuthor)
+
+router.route('/customer/:customerId')
+  /**
+   * @api {get} /api/orders List Orders
+   * @apiName List Orders
+   * @apiGroup Order
+   * @apiVersion 1.0.0
+   *
+   * @apiParam none
+   *
+   * @apiSuccess {Array} orders List of orders
+   * @apiError {Object} error Error response
+   */
+  .get(userCtrl.ordersByCustomer)
 router.route('/')
   /**
    * @api {get} /api/orders List Orders

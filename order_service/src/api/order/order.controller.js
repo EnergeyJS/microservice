@@ -79,7 +79,7 @@ async function update (req, res, next) {
  */
 async function list (req, res, next) {
   try {
-    const orders = await Order.list(req.query)
+    const orders = await Order.list({}, req.query)
     return res.json(orders)
   } catch (e) {
     next(e)
@@ -102,11 +102,65 @@ async function remove (req, res, next) {
   }
 }
 
+/**
+ * List orders filtered by customer
+ * @property {string} req.parmas.customerId customer id of orders to be listed
+ * @property {string} req.query.limit number of users to be listed
+ * @property {string} req.query.skip number of users to be skipped
+ * @returns {<Order[], Error>}
+ */
+async function ordersByCustomer (req, res, next) {
+  try {
+    const { customerId } = req.params
+    const orders = await Order.list({ customer: customerId }, req.query)
+    return res.json(orders)
+  } catch (e) {
+    next(e)
+  }
+}
+
+/**
+ * List orders filtered by book
+ * @property {string} req.parmas.bookId book id of orders to be listed
+ * @property {string} req.query.limit number of users to be listed
+ * @property {string} req.query.skip number of users to be skipped
+ * @returns {<Order[], Error>}
+ */
+async function ordersByBook (req, res, next) {
+  try {
+    const { bookId } = req.params
+    const orders = await Order.list({ book: bookId }, req.query)
+    return res.json(orders)
+  } catch (e) {
+    next(e)
+  }
+}
+
+/**
+ * List orders filtered by book
+ * @property {string} req.parmas.bookId book id of orders to be listed
+ * @property {string} req.query.limit number of users to be listed
+ * @property {string} req.query.skip number of users to be skipped
+ * @returns {<Order[], Error>}
+ */
+async function ordersByAuthor (req, res, next) {
+  try {
+    const { bookIds = [] } = req.body
+    const orders = await Order.list({ book: { $in: bookIds } }, req.query)
+    return res.json(orders)
+  } catch (e) {
+    next(e)
+  }
+}
+
 module.exports = {
   load,
   get,
   create,
   list,
   update,
-  remove
+  remove,
+  ordersByCustomer,
+  ordersByBook,
+  ordersByAuthor
 }

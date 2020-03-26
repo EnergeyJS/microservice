@@ -83,7 +83,7 @@ async function update (req, res, next) {
  */
 async function list (req, res, next) {
   try {
-    let books = await Book.list(req.query)
+    let books = await Book.list({}, req.query)
     return res.json(books)
   } catch (e) {
     next(e)
@@ -122,6 +122,22 @@ async function populate (req, res, next) {
   }
 }
 
+/**
+ * List users
+ * @property {string} req.params.limit number of users to be listed
+ * @property {string} req.params.skip number of users to be skipped
+ * @returns {<Book[], Error>}
+ */
+async function booksByAuthor (req, res, next) {
+  try {
+    const { authorId } = req.params
+    let books = await Book.list({ author: authorId }, req.query)
+    return res.json(books)
+  } catch (e) {
+    next(e)
+  }
+}
+
 module.exports = {
   load,
   get,
@@ -129,5 +145,6 @@ module.exports = {
   list,
   update,
   remove,
-  populate
+  populate,
+  booksByAuthor
 }

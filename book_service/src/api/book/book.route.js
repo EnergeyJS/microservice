@@ -4,6 +4,20 @@ const bookCtrl = require('./book.controller')
 
 const router = Router()
 
+router.route('/books-by-author/:authorId')
+  /**
+   * @api {get} /api/book List Books
+   * @apiName List Books
+   * @apiGroup Book
+   * @apiVersion 1.0.0
+   *
+   * @apiParam none
+   *
+   * @apiSuccess {Array} book List of book
+   * @apiError {Object} error Error response
+   */
+  .get(bookCtrl.booksByAuthor)
+
 router.route('/populate')
   /**
    * @api {get} /api/book List Books

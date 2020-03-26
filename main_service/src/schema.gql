@@ -100,7 +100,11 @@ input PaginationInput {
 
 type Query {
   orders(pagination: PaginationInput): OrderPaginateModel!
+  ordersByCutomer(pagination: PaginationInput, customerId: ObjectId): OrderPaginateModel!
+  ordersByBook(pagination: PaginationInput, bookId: ObjectId): OrderPaginateModel!
+  ordersByAuthor(pagination: PaginationInput, authorId: ObjectId): OrderPaginateModel!
   books(pagination: PaginationInput): BookPaginateModel!
+  booksByAuthor(pagination: PaginationInput, authorId: String): BookPaginateModel!
   admins: [Admin!]!
   users(pagination: PaginationInput): UserPaginateModel!
 }

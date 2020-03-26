@@ -56,4 +56,13 @@ export default class BookResolver {
     const { author } = book;
     return ctx.loader.user.load(author);
   }
+
+  @Query(returns => BookPaginateModel)
+  async booksByAuthor(
+    @Arg('authorId', { nullable: true }) authorId ?: string,
+    @Arg('pagination', { nullable: true }) paginate: PaginationInput= { page: 1, limit: 50 }
+  ): Promise<PaginateResult<DocumentType<Book>>> {
+    const {data} = await axios.get(`${BOOK_SERVICE_URL}/api/book/books-by-author/${authorId}?page=${paginate.page}&limit=${paginate.limit}`);
+    return data;
+  }
 }

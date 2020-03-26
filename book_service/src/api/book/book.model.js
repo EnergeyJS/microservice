@@ -55,11 +55,9 @@ BookSchema.statics = {
    * @param {number} limit - Limit number of users to be returned
    * @returns {Promise<Book[], Error>}
    */
-  async list ({ page = 1, limit = 50 } = {}) {
-    console.log(page)
-    console.log(limit)
+  async list (conditions = {}, { page = 1, limit = 50 } = {}) {
     const books = await this.paginate(
-      {},
+      conditions,
       {
         page,
         limit
