@@ -103,7 +103,7 @@ type Query {
   ordersByCutomer(pagination: PaginationInput, customerId: ObjectId): OrderPaginateModel!
   ordersByBook(pagination: PaginationInput, bookId: ObjectId): OrderPaginateModel!
   ordersByAuthor(pagination: PaginationInput, authorId: ObjectId): OrderPaginateModel!
-  books(pagination: PaginationInput): BookPaginateModel!
+  books(pagination: PaginationInput): [Book!]!
   booksByAuthor(pagination: PaginationInput, authorId: String): BookPaginateModel!
   admins: [Admin!]!
   users(pagination: PaginationInput): UserPaginateModel!

@@ -18,11 +18,28 @@ const { BOOK_SERVICE_URL } = process.env;
 export default class BookResolver {
 
   // @Authorized()
-  @Query(returns => BookPaginateModel)
+  @Query(returns => [Book])
   async books(
     @Arg('pagination', { nullable: true }) paginate: PaginationInput= { page: 1, limit: 50 }
   ): Promise<PaginateResult<DocumentType<Book>>> {
-    const {data} = await axios.get(`${BOOK_SERVICE_URL}/api/book?page=${paginate.page}&limit=${paginate.limit}`);
+    const filter = {
+      "offset": 0,
+      "limit": 100,
+      "skip": 0,
+      "order": [
+        "string"
+      ],
+      "where": {
+        
+      },
+      "fields": {
+        "_id": true,
+        "author": true,
+        "name": true,
+        "price": true
+      }
+    }
+    const {data} = await axios.get(`${BOOK_SERVICE_URL}/book?filter=${JSON.stringify(filter)}`);
     return data;
   }
 
